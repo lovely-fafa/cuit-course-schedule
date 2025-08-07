@@ -1,0 +1,6 @@
+cookies.py
+*.pdf
+html
+pdf
+.idea
+__pycache__
