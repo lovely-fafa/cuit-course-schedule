@@ -3,8 +3,6 @@
 #
 # @Time    : 2025-07-27 1:14
 # @Author  : 阿发
-# @Email   : fafa27182818@gmail.com
-# @GitHub  : https://github.com/lovely-fafa
 # @File    : 1_爬取.py
 # @Software: PyCharm
 
@@ -50,7 +48,7 @@ class Main(feapder.AirSpider):
 
     def start_requests(self):
 
-        for semester_id, semester_name in zip(['905', '906'], ['2024-2025学年2学期', '2025-2026学年1学期']):
+        for semester_id, semester_name in zip(['1006', '1106'], ['2025-2026学年2学期', '2026-2027学年1学期']):
             progress.add_task()
             yield feapder.Request(
                 'http://jwgl-cuit-edu-cn.webvpn.cuit.edu.cn:8118/eams/courseTableSecondForStd.action',
@@ -150,7 +148,7 @@ class Main(feapder.AirSpider):
         for tr in trs:
             tds = [get_s_from_xpath_selector(td.xpath('.//text()')) for td in tr.xpath('./td')]
             college = tds[6]
-            if college in ['物流学院', '管理学院', '文化艺术学院', '统计学院']:
+            if college in ['物流学院', '管理学院', '文化艺术学院', '统计学院', '智慧文旅学院']:
                 college = f'龙泉_{college}'
             else:
                 college = f'航空港_{college}'

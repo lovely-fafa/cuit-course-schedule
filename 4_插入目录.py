@@ -3,8 +3,6 @@
 #
 # @Time    : 2025-08-07 0:51
 # @Author  : 阿发
-# @Email   : fafa27182818@gmail.com
-# @GitHub  : https://github.com/lovely-fafa
 # @File    : 4_插入目录.py
 # @Software: PyCharm
 """
@@ -17,8 +15,6 @@
 4.我pdf很多页，也就是说目录肯定是不止一页的，你不能直接认为目录中第一行一定跳转目录页+1
 5.目录要超链接
 """
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 from pathlib import Path
 import math
@@ -26,27 +22,27 @@ import fitz  # PyMuPDF
 
 
 def insert_toc_only(
-    input_pdf: str,
-    output_pdf: str,
-    *,
-    toc_after: int = 0,                         # 在第几页后插入目录；0=最前；1=第1页后……
-    fontfile: str = r"C:\Windows\Fonts\simsun.ttc",
-    fontsize: int = 12,
-    header_text: str = "目录",
-    header_fontsize: int = 18,
-    left_margin: float = 50.0,
-    right_margin: float = 50.0,
-    top_margin: float = 50.0,
-    bottom_margin: float = 50.0,
-    indent_step: float = 20.0,
-    line_leading: float = 1.35,
-    show_numbers: bool = True,                  # 是否在目录右侧显示页码（只在目录页显示）
-    body_start_at: int | None = None,           # 逻辑页：正文第一页的物理索引(0-based)。None=关闭逻辑页显示
-    # —— 新增：点线引导配置 ——
-    leader_enabled: bool = True,                # 是否启用点线引导
-    leader_char: str = "·",                     # 引导字符，可改为 "."
-    leader_left_gap: float = 8.0,               # 标题与点线之间的最小间隔（pt）
-    leader_right_gap: float = 6.0,              # 点线与页码之间的最小间隔（pt）
+        input_pdf: str,
+        output_pdf: str,
+        *,
+        toc_after: int = 0,  # 在第几页后插入目录；0=最前；1=第1页后……
+        fontfile: str = r"C:\Windows\Fonts\simsun.ttc",
+        fontsize: int = 12,
+        header_text: str = "目录",
+        header_fontsize: int = 18,
+        left_margin: float = 50.0,
+        right_margin: float = 50.0,
+        top_margin: float = 50.0,
+        bottom_margin: float = 50.0,
+        indent_step: float = 20.0,
+        line_leading: float = 1.35,
+        show_numbers: bool = True,  # 是否在目录右侧显示页码（只在目录页显示）
+        body_start_at: int | None = None,  # 逻辑页：正文第一页的物理索引(0-based)。None=关闭逻辑页显示
+        # —— 新增：点线引导配置 ——
+        leader_enabled: bool = True,  # 是否启用点线引导
+        leader_char: str = "·",  # 引导字符，可改为 "."
+        leader_left_gap: float = 8.0,  # 标题与点线之间的最小间隔（pt）
+        leader_right_gap: float = 6.0,  # 点线与页码之间的最小间隔（pt）
 ):
     doc = fitz.open(input_pdf)
 
@@ -179,7 +175,7 @@ def insert_toc_only(
             page.insert_link({
                 "kind": fitz.LINK_GOTO,
                 "from": link_rect,
-                "page": p_new0,          # 0-based 目标物理页（已包含目录偏移）
+                "page": p_new0,  # 0-based 目标物理页（已包含目录偏移）
                 "to": fitz.Point(0, 0),
                 "zoom": 0,
             })
@@ -189,10 +185,10 @@ def insert_toc_only(
     # === 重写书签页码（把原书签全部映射到“新物理页”） ===
     new_toc = [[level, title, p_new0 + 1] for (level, title, _p_old0, p_new0, _disp) in adjusted]
     try:
-        doc.set_toc(new_toc)          # 新接口
+        doc.set_toc(new_toc)  # 新接口
     except AttributeError:
         try:
-            doc.setToC(new_toc)       # 旧接口
+            doc.setToC(new_toc)  # 旧接口
         except Exception as e:
             print(f"警告：未能更新书签页码：{e}")
 
@@ -206,10 +202,10 @@ def insert_toc_only(
 if __name__ == "__main__":
     # 示例
     insert_toc_only(
-        input_pdf=r"成信大课程表.pdf",
-        output_pdf=r"成信大课程表-带目录.pdf",
+        input_pdf=r"成信大课程表20260627.pdf",
+        output_pdf=r"成信大课程表20260627-带目录.pdf",
         toc_after=0,  # 0=最前插；2=在第2页后插
-        fontfile=r"C:\Windows\Fonts\simsun.ttc",
+        fontfile=r"Alibaba-PuHuiTi-Regular.ttf",
         header_text="目录",
         show_numbers=True,  # 目录右侧显示目标页码（不影响你后续用 Acrobat 加页码）
     )

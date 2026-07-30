@@ -3,8 +3,6 @@
 #
 # @Time    : 2025-08-07 3:06
 # @Author  : 阿发
-# @Email   : fafa27182818@gmail.com
-# @GitHub  : https://github.com/lovely-fafa
 # @File    : 5_页码.py
 # @Software: PyCharm
 
@@ -12,14 +10,15 @@ from tqdm import tqdm
 import fitz
 import os
 
+
 def add_page_numbers(
-    input_pdf: str,
-    output_pdf: str,
-    start_page: int = 1,
-    fontfile: str = r"C:\Windows\Fonts\simsun.ttc",
-    fontsize: int = 12,
-    x_offset: float = 120,
-    y_offset: float = 30,
+        input_pdf: str,
+        output_pdf: str,
+        start_page: int = 1,
+        fontfile: str = r"C:\Windows\Fonts\simsun.ttc",
+        fontsize: int = 12,
+        x_offset: float = 120,
+        y_offset: float = 30,
 ):
     """
     为 PDF 添加页码：第 x 页 共 y 页
@@ -77,7 +76,11 @@ def add_page_numbers(
 
 if __name__ == "__main__":
     add_page_numbers(
-        '合并.pdf',
-        '成信大课程表2025版V1.1.pdf',
-        26
+        '成信大课程表20260627-带目录.pdf',
+        '成信大课程表20260627-带目录页码.pdf',
+        23,
+        r'D:\PythonProject\2024\20241114_3_词云图\Alibaba-PuHuiTi-Regular.ttf',
+        fontsize=10,
+        x_offset=105,
+        y_offset=25
     )

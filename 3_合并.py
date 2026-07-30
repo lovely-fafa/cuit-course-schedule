@@ -3,8 +3,6 @@
 #
 # @Time    : 2025-07-27 2:32
 # @Author  : 阿发
-# @Email   : fafa27182818@gmail.com
-# @GitHub  : https://github.com/lovely-fafa
 # @File    : 3_合并.py
 # @Software: PyCharm
 
@@ -59,6 +57,6 @@ def merge_pdfs_with_bookmarks(root_dir: str, output_path: str):
 
 
 if __name__ == "__main__":
-    ROOT = r"pdf"  # 改成你的多级文件夹路径
-    OUT = r"成信大课程表.pdf"  # 改成你想要的输出文件
+    ROOT = r"clean_pdf"  # 改成你的多级文件夹路径
+    OUT = r"成信大课程表20260627.pdf"  # 改成你想要的输出文件
     merge_pdfs_with_bookmarks(ROOT, OUT)
