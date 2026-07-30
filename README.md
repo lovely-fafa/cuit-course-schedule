@@ -81,7 +81,7 @@ height_mm = pixel_height * mm_per_px + 10
 
 - CUIT指南：https://guide.cuit.dev
 - 阿发的小群：[736723590](https://qm.qq.com/q/cv9tlkrPJC)
-- 2025 CUIT学生数学建模协会新生群：[831243362](https://qm.qq.com/q/PP6oSoaVie)
+- 2026 CUIT学生数学建模协会新生群：[1037962539](https://qm.qq.com/q/PP6oSoaVie)
 
 ## 版本迭代
 

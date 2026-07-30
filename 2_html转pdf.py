@@ -3,11 +3,10 @@
 #
 # @Time    : 2025-07-27 2:17
 # @Author  : 阿发
-# @Email   : fafa27182818@gmail.com
-# @GitHub  : https://github.com/lovely-fafa
 # @File    : 2_html转pdf.py
 # @Software: PyCharm
 
+import traceback
 from pathlib import Path
 import asyncio
 
@@ -21,7 +20,10 @@ async def html_to_pdf_via_screenshot():
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=False)
         page = await browser.new_page()
-        for file in tqdm(list(Path('html').rglob('*.html'))):
+        for file in tqdm(
+                list(Path('html', '2025-2026学年2学期').rglob('*.html')) +
+                list(Path('html', '2026-2027学年1学期').rglob('*.html'))
+        ):
             try:
                 pdf_folder = Path('pdf') / Path(*list(file.parts[1:-1]))
                 pdf_folder.mkdir(exist_ok=True, parents=True)
@@ -32,12 +34,12 @@ async def html_to_pdf_via_screenshot():
                 await page.screenshot(path=img_path, full_page=True)
                 # Python 端打开测高
                 img = Image.open(img_path)
-                Path(img_path).unlink()
                 pixel_height = img.height  # 真实物理像素数
                 img.close()
+                Path(img_path).unlink()
                 # 假设用 96 DPI 输出 PDF：
                 mm_per_px = 25.4 / 96
-                height_mm = pixel_height * mm_per_px + 10
+                height_mm = pixel_height * mm_per_px + 30
                 # fullPage 截图
                 # 最后，调用 Playwright 或 pdfkit 生成 PDF：
                 # 这里示例用 pdfkit
@@ -49,14 +51,19 @@ async def html_to_pdf_via_screenshot():
                     "margin-bottom": "10mm",
                     "margin-left": "10mm",
                     "margin-right": "10mm",
+                    "enable-local-file-access": "",
+                    "load-error-handling": "ignore",
+                    "load-media-error-handling": "ignore",
+                    "encoding": "UTF-8",
+                    "quiet": "",
                 }
-                pdfkit.from_url(
-                    f'http://localhost:8000/{str(file)}'.replace('\\', '/'),
+                pdfkit.from_file(
+                    str(file),
                     str(pdf_folder / f'{file.stem}.pdf'),
                     options=options
                 )
             except Exception as e:
-                print(file, e)
+                print(file, traceback.format_exc())
         await browser.close()
 
 
