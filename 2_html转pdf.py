@@ -5,6 +5,7 @@
 # @Author  : 阿发
 # @File    : 2_html转pdf.py
 # @Software: PyCharm
+# python -m http.server 8000
 
 import traceback
 from pathlib import Path
@@ -39,13 +40,13 @@ async def html_to_pdf_via_screenshot():
                 Path(img_path).unlink()
                 # 假设用 96 DPI 输出 PDF：
                 mm_per_px = 25.4 / 96
-                height_mm = pixel_height * mm_per_px + 30
+                height_mm = pixel_height * mm_per_px + 300
                 # fullPage 截图
                 # 最后，调用 Playwright 或 pdfkit 生成 PDF：
                 # 这里示例用 pdfkit
                 options = {
                     "print-media-type": "",
-                    "page-width": "230mm",
+                    "page-width": "209.9mm",
                     "page-height": f"{height_mm:.2f}mm",
                     "margin-top": "10mm",
                     "margin-bottom": "10mm",

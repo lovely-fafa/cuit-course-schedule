@@ -76,10 +76,10 @@ def add_page_numbers(
 
 if __name__ == "__main__":
     add_page_numbers(
-        '成信大课程表20260627-带目录.pdf',
-        '成信大课程表20260627-带目录页码.pdf',
-        23,
-        r'D:\PythonProject\2024\20241114_3_词云图\Alibaba-PuHuiTi-Regular.ttf',
+        '成信大课程表20260804-带目录.pdf',
+        '成信大课程表20260804-带目录页码.pdf',
+        8,
+        r'Alibaba-PuHuiTi-Regular.ttf',
         fontsize=10,
         x_offset=105,
         y_offset=25

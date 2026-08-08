@@ -45,9 +45,11 @@ def insert_toc_only(
         leader_right_gap: float = 6.0,  # 点线与页码之间的最小间隔（pt）
 ):
     doc = fitz.open(input_pdf)
+    print(doc.page_count)
 
     # 书签：[[level, title, page1based], ...]
     toc_data = doc.get_toc(simple=True)
+    toc_data = [item for item in toc_data if item[0] <= 2]
     if not toc_data:
         Path(output_pdf).parent.mkdir(parents=True, exist_ok=True)
         doc.save(output_pdf)
@@ -191,7 +193,7 @@ def insert_toc_only(
             doc.setToC(new_toc)  # 旧接口
         except Exception as e:
             print(f"警告：未能更新书签页码：{e}")
-
+    print(doc.page_count)
     # 保存
     Path(output_pdf).parent.mkdir(parents=True, exist_ok=True)
     doc.save(output_pdf)
@@ -202,8 +204,8 @@ def insert_toc_only(
 if __name__ == "__main__":
     # 示例
     insert_toc_only(
-        input_pdf=r"成信大课程表20260627.pdf",
-        output_pdf=r"成信大课程表20260627-带目录.pdf",
+        input_pdf=r"tmp.pdf",
+        output_pdf=r"成信大课程表20260804-带目录.pdf",
         toc_after=0,  # 0=最前插；2=在第2页后插
         fontfile=r"Alibaba-PuHuiTi-Regular.ttf",
         header_text="目录",
